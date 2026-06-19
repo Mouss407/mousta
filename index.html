@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Shop MOOSTA – iPhones  aux Comores</title>
+    <meta name="description" content="Boutique spécialisée dans la vente d'iPhones et accessoires à prix attractifs aux Comores">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --grey-light: #f5f5f7;
+            --grey-mid: #e0e0e0;
+            --grey-text: #6e6e73;
+            --accent: #2563eb;
+            --accent-dark: #1d4ed8;
+            --wa-green: #25D366;
+            --wa-dark: #128C7E;
+            --price-color: #1a1a1a;
+            --radius: 14px;
+            --shadow: 0 2px 16px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.5;
+        }
+
+        /* ── NAV ── */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--grey-mid);
+            padding: 0 24px;
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .brand-icon { font-size: 22px; }
+        .brand-name { font-size: 17px; font-weight: 700; color: var(--black); letter-spacing: -0.3px; }
+
+        nav ul { list-style: none; display: flex; gap: 6px; }
+        nav a {
+            text-decoration: none;
+            color: var(--grey-text);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: background 0.2s, color 0.2s;
+        }
+        nav a:hover { background: var(--grey-light); color: var(--black); }
+
+        /* ── HERO ── */
+        .hero {
+            background: url('image/MOI.jpg') center center / cover no-repeat;
+            position: relative;
+            color: white;
+            text-align: center;
+            padding: 80px 24px 70px;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.72) 0%, rgba(10,10,40,0.78) 100%);
+        }
+        .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(37,99,235,0.2);
+            border: 1px solid rgba(37,99,235,0.4);
+            color: #93c5fd;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .hero h1 span { color: #60a5fa; }
+        .hero p {
+            font-size: 17px;
+            color: #a0aec0;
+            max-width: 480px;
+            margin: 0 auto 32px;
+        }
+        .hero-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+        .btn-primary:hover { background: var(--accent-dark); }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.25);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+        /* ── SECTIONS ── */
+        main { max-width: 1100px; margin: 0 auto; padding: 0 24px 60px; }
+
+        .section-header {
+            padding: 52px 0 24px;
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+        }
+        .section-header h2 {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .section-count {
+            font-size: 13px;
+            color: var(--grey-text);
+            font-weight: 500;
+        }
+        .section-divider {
+            height: 1px;
+            background: var(--grey-mid);
+            margin-bottom: 32px;
+        }
+
+        /* ── GRID ── */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        /* ── CARD ── */
+        .product-card {
+            background: var(--grey-light);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+        .card-img-wrap {
+            background: white;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .card-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 16px;
+        }
+        .card-body {
+            padding: 14px 16px 16px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: -0.2px;
+        }
+        .card-desc {
+            font-size: 12px;
+            color: var(--grey-text);
+            line-height: 1.5;
+            margin-bottom: 10px;
+            flex: 1;
+        }
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .card-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--price-color);
+            letter-spacing: -0.5px;
+        }
+        .stock-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: #16a34a;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .stock-badge::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            background: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        /* ── WHATSAPP BTN ── */
+        .btn-wa {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--wa-green);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background 0.2s;
+        }
+        .btn-wa:hover { background: var(--wa-dark); }
+        .btn-wa svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--black);
+            color: #a0aec0;
+            padding: 48px 24px 32px;
+            margin-top: 60px;
+        }
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        footer h3 { color: white; font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+        footer p { font-size: 14px; line-height: 2; }
+        footer a { color: #60a5fa; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 32px auto 0;
+            border-top: 1px solid #1f2937;
+            padding-top: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        @media (max-width: 600px) {
+            .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .hero { padding: 60px 16px 50px; }
+            .header-inner { gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <a href="#" class="brand">
+            <span class="brand-icon">📱</span>
+            <span class="brand-name">iPhone Shop MOOSTA</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#telephones">Téléphones</a></li>
+                <li><a href="#accessoires">Accessoires</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-badge">🇰🇲 Livraison aux Comores</div>
+    <h1>iPhones reconditionnés et neufs<br><span>aux meilleurs prix</span></h1>
+    <p>Des appareils certifiés Excellent  état, accessoires Apple inclus. Commandez directement via WhatsApp.</p>
+    <div class="hero-ctas">
+        <a href="#telephones" class="btn-primary">Voir les iPhones</a>
+        <a href="#accessoires" class="btn-outline">Accessoires</a>
+    </div>
+</section>
+
+<main>
+
+    <!-- TÉLÉPHONES -->
+    <div id="telephones">
+        <div class="section-header">
+            <h2>Nos iPhones</h2>
+            <span class="section-count">14 modèles disponibles</span>
+        </div>
+        <div class="section-divider"></div>
+    </div>
+
+    <div class="product-grid">
+
+        <!-- iPhone XR -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphoneXR.webp" alt="iPhone XR 64Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone XR</div>
+                <div class="card-desc">Écran Liquid Retina HD · Puce A12 Bionic · 64 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">165€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%20XR%20(165%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone XS -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphoneXS.webp" alt="iPhone XS 64Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone XS</div>
+                <div class="card-desc">Écran Super Retina OLED · Puce A12 Bionic · 64 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">175€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%20XS%20(175%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 11 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphone11.jpeg" alt="iPhone 11 64Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 11</div>
+                <div class="card-desc">Écran Liquid Retina HD · Puce A13 Bionic · 64 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">210€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2011%20(210%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 11 Pro -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphone11.jpeg" alt="iPhone 11 Pro 64Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 11 Pro</div>
+                <div class="card-desc">Écran Super Retina XDR · Puce A13 Bionic · 64 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">240€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2011%20Pro%20(240%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 12 mini -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/12 mini.webp" alt="iPhone 12 mini 64Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 12 mini</div>
+                <div class="card-desc">Écran Super Retina XDR · Puce A14 Bionic · 64 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">230€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2012%20mini%20(230%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 12 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphone12.jpeg" alt="iPhone 12 64Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 12</div>
+                <div class="card-desc">Écran Super Retina XDR · Puce A14 Bionic · 64 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">250€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2012%20(250%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 12 Pro -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphone12pro.jpeg" alt="iPhone 12 Pro 128Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 12 Pro</div>
+                <div class="card-desc">Écran Super Retina XDR · Puce A14 Bionic · 128 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">320€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2012%20Pro%20(320%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 13 mini -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphone13mini.jpeg" alt="iPhone 13 mini 128Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 13 mini</div>
+                <div class="card-desc">Écran Super Retina XDR · Puce A15 Bionic · 128 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">310€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2013%20mini%20(310%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 13 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphone13.jpeg" alt="iPhone 13 128Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 13</div>
+                <div class="card-desc">Écran Super Retina XDR · Puce A15 Bionic · 128 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">365€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2013%20(365%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 13 Pro -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphone13pro.jpeg" alt="iPhone 13 Pro 128Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 13 Pro</div>
+                <div class="card-desc">Écran Super Retina XDR ProMotion · Puce A15 Bionic · 128 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">410€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2013%20Pro%20(410%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 14 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphone14.jpg" alt="iPhone 14 128Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 14</div>
+                <div class="card-desc">Écran Super Retina XDR · Puce A15 Bionic · 128 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">440€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2014%20(440%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 14 Pro -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphone14pro.jpeg" alt="iPhone 14 Pro 128Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 14 Pro</div>
+                <div class="card-desc">Écran Super Retina XDR ProMotion · Puce A16 Bionic · 128 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">540€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2014%20Pro%20(540%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 15 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iPhone15.webp" alt="iPhone 15 128Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 15</div>
+                <div class="card-desc">Écran Super Retina XDR · Puce A16 Bionic · 128 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">575€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2015%20(575%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone 15 Pro -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/iphone15pro.jpeg" alt="iPhone 15 Pro 128Go Reconditionné">
+            </div>
+            <div class="card-body">
+                <div class="card-title">iPhone 15 Pro</div>
+                <div class="card-desc">Écran Super Retina XDR ProMotion · Puce A17 Pro · 128 Go · Reconditionné bon état</div>
+                <div class="stock-badge">En stock</div>
+                <div class="card-footer">
+                    <span class="card-price">800€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20l'iPhone%2015%20Pro%20(800%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /product-grid phones -->
+
+    <!-- ACCESSOIRES -->
+    <div id="accessoires">
+        <div class="section-header">
+            <h2>Accessoires</h2>
+            <span class="section-count">AirPods · Coques · Protections</span>
+        </div>
+        <div class="section-divider"></div>
+    </div>
+
+    <div class="product-grid">
+
+        <!-- AirPods 1 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/apple-airpods.webp" alt="Apple AirPods">
+            </div>
+            <div class="card-body">
+                <div class="card-title">Apple AirPods</div>
+                <div class="card-desc">Sans fil · Stéréo · Contrôle lecture/pause, volume, Siri · 5h d'écoute</div>
+                <div class="stock-badge">Plusieurs modèles</div>
+                <div class="card-footer">
+                    <span class="card-price">50€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20aux%20AirPods%20(50%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- AirPods 3e gen -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/oreillette-bluetooth-8.webp" alt="AirPods 3e génération">
+            </div>
+            <div class="card-body">
+                <div class="card-title">AirPods 3ᵉ génération</div>
+                <div class="card-desc">Boîtier Lightning · Blanc · Jusqu'à 6h d'écoute · Résistant à la transpiration</div>
+                <div class="stock-badge">Plusieurs modèles</div>
+                <div class="card-footer">
+                    <span class="card-price">50€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20aux%20AirPods%203e%20g%C3%A9n%20(50%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- AirPods 2e gen -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/apple-ecouteurs-sans-fil-airpods-2-boitier-de-ch.webp" alt="AirPods 2e génération">
+            </div>
+            <div class="card-body">
+                <div class="card-title">AirPods 2ᵉ génération</div>
+                <div class="card-desc">« Dis Siri » activé · 5h d'écoute · Boîtier de charge filaire · Blanc</div>
+                <div class="stock-badge">Plusieurs modèles</div>
+                <div class="card-footer">
+                    <span class="card-price">50€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20aux%20AirPods%202e%20g%C3%A9n%20(50%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coque 1 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/Coque.webp" alt="Coque iPhone personnalisée">
+            </div>
+            <div class="card-body">
+                <div class="card-title">Coque personnalisée</div>
+                <div class="card-desc">Protection anti-chocs · Design personnalisé · Plusieurs modèles</div>
+                <div class="stock-badge">Plusieurs modèles</div>
+                <div class="card-footer">
+                    <span class="card-price">10€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20une%20coque%20personnalis%C3%A9e%20(10%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coque 2 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/Coque 1.PNG" alt="Coque iPhone personnalisée modèle 2">
+            </div>
+            <div class="card-body">
+                <div class="card-title">Coque personnalisée</div>
+                <div class="card-desc">Protection anti-chocs · Design personnalisé · Plusieurs modèles</div>
+                <div class="stock-badge">Plusieurs modèles</div>
+                <div class="card-footer">
+                    <span class="card-price">10€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20une%20coque%20personnalis%C3%A9e%20(10%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coque 3 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/Coque 2.PNG" alt="Coque iPhone personnalisée modèle 3">
+            </div>
+            <div class="card-body">
+                <div class="card-title">Coque personnalisée</div>
+                <div class="card-desc">Protection anti-chocs · Design personnalisé · Plusieurs modèles</div>
+                <div class="stock-badge">Plusieurs modèles</div>
+                <div class="card-footer">
+                    <span class="card-price">10€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20%C3%A0%20une%20coque%20personnalis%C3%A9e%20(10%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Glace anti-espion 1 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/3.png" alt="Verre trempé anti-espion">
+            </div>
+            <div class="card-body">
+                <div class="card-title">Verre trempé anti-espion</div>
+                <div class="card-desc">Protection écran · Filtre de confidentialité · Anti-chocs · Compatible iPhone</div>
+                <div class="stock-badge">Plusieurs modèles</div>
+                <div class="card-footer">
+                    <span class="card-price">6€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20au%20verre%20tremp%C3%A9%20anti-espion%20(6%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Glace anti-espion 2 -->
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="image/4.png" alt="Verre trempé anti-espion modèle 2">
+            </div>
+            <div class="card-body">
+                <div class="card-title">Verre trempé anti-espion</div>
+                <div class="card-desc">Protection écran · Filtre de confidentialité · Anti-chocs · Compatible iPhone</div>
+                <div class="stock-badge">Plusieurs modèles</div>
+                <div class="card-footer">
+                    <span class="card-price">6€</span>
+                    <a href="https://wa.me/2694758808?text=Bonjour%2C%20je%20m'int%C3%A9resse%20au%20verre%20tremp%C3%A9%20anti-espion%20(6%E2%82%AC)" class="btn-wa">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Commander
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /product-grid accessories -->
+
+</main>
+
+<!-- FOOTER -->
+<footer id="contact">
+    <div class="footer-inner">
+        <div>
+            <h3>📱 iPhone Shop MOOSTA</h3>
+            <p>Spécialiste en iPhones <br>aux Comores depuis 2023.</p>
+        </div>
+        <div>
+            <h3>Contactez-nous</h3>
+            <p>
+                📞 <a href="tel:+2694758808">+269 475 88 08</a><br>
+                ✉️ <a href="mailto:mouskim123@gmail.com">mouskim123@gmail.com</a><br>
+                🕐 Disponible 24h/24, 7j/7<br>
+                🚚 Livraison sur tout l'archipel
+            </p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2025 iPhone Shop MOOSTA — Tous droits réservés · Faites vos commandes ! YEYA PVEGNA HALATSA
+    </div>
+</footer>
+
+</body>
+</html>
